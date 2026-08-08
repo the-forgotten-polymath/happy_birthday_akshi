@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { between, makeRandom } from "@/lib/random";
 
@@ -41,18 +41,21 @@ type Spec = {
 
 function Balloon({ spec }: { spec: Spec }) {
   const { left, size, duration, delay, colors, drift, curve, swayDelay } = spec;
+  const [popped, setPopped] = useState(false);
 
   const stringHeight = size * 1.7;
   const mid = size / 2;
   // Knot sits this far below the body; the string picks up exactly there.
   const knotDrop = size * 0.055;
 
+  if (popped) return null;
+
   return (
     <motion.div
       // `items-center` is what keeps the string under the knot — the previous
       // `mx-auto` + inline `marginLeft` combination fought each other and
       // pinned the string to the left edge.
-      className="absolute bottom-0 flex flex-col items-center"
+      className="absolute bottom-0 flex flex-col items-center cursor-pointer pointer-events-auto"
       style={{ left: `${left}%`, width: size }}
       // Starts below the container, so it rises into view on its own and needs
       // no opacity fade — the container's mask takes care of both edges.
@@ -67,6 +70,17 @@ function Balloon({ spec }: { spec: Spec }) {
         repeat: Infinity,
         ease: "linear",
         x: { duration: duration / 2.5, repeat: Infinity, ease: "easeInOut" },
+      }}
+      onPointerDown={(e) => {
+        setPopped(true);
+        const rect = e.currentTarget.getBoundingClientRect();
+        import("@/lib/celebrate").then(({ burst }) => {
+          burst(
+            (rect.left + rect.width / 2) / window.innerWidth,
+            (rect.top + rect.height / 2) / window.innerHeight,
+            30
+          );
+        });
       }}
     >
       {/* body */}

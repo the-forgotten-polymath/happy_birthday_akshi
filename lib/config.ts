@@ -246,6 +246,14 @@ export const config = {
   },
 
   /**
+   * Countdown gate configuration. Blocks the site until the target date.
+   */
+  gate: {
+    targetDate: "2026-08-09T00:00:00", // August 9, 2026 at Midnight
+    bypassKey: "akshi22",
+  },
+
+  /**
    * Secret Konami-style code to trigger a massive confetti explosion.
    * Type this anywhere on the page!
    */

@@ -12,25 +12,30 @@ import ArcadeHub from "@/components/sections/ArcadeHub";
 import Cake from "@/components/sections/Cake";
 import LetterV2 from "@/components/sections/LetterV2";
 import Finale from "@/components/sections/Finale";
+import Gate from "@/components/ui/Gate";
+import MusicPlayerBar from "@/components/ui/MusicPlayerBar";
 
 export default function Home() {
   return (
-    <AppShell>
-      <main className="relative">
-        <HeroV2 />
-        <Marquee />
-        <Numbers />
-        <ScrollText />
-        <TwentyTwoV2 />
-        <Timeline />
-        <Gallery />
-        <Reasons />
-        <GiftBox />
-        <ArcadeHub />
-        <Cake />
-        <LetterV2 />
-        <Finale />
-      </main>
-    </AppShell>
+    <Gate>
+      <AppShell>
+        <MusicPlayerBar />
+        <main className="relative">
+          <HeroV2 />
+          <Marquee />
+          <Numbers />
+          <ScrollText />
+          <TwentyTwoV2 />
+          <Timeline />
+          <Gallery />
+          <Reasons />
+          <GiftBox />
+          <ArcadeHub />
+          <Cake />
+          <LetterV2 />
+          <Finale />
+        </main>
+      </AppShell>
+    </Gate>
   );
 }

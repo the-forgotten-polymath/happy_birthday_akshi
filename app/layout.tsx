@@ -49,15 +49,14 @@ export default function RootLayout({
             alt=""
             className="absolute inset-0 h-full w-full scale-105 object-cover"
           />
-          {/* 5% blur layer above the background */}
-          <div className="absolute inset-0 backdrop-blur-[5px]" />
+          {/* 10% blur layer above the background */}
+          <div className="absolute inset-0 backdrop-blur-[10px]" />
           {/* Dark blue-tinted overlay so text remains readable */}
           <div className="absolute inset-0 bg-[#0a1628]/50" />
         </div>
         <ParticleField />
         <CursorGlow />
         <ScrollProgress />
-        <MusicPlayerBar />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
