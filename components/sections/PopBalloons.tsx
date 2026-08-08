@@ -161,7 +161,7 @@ export default function PopBalloons() {
       {gameState === "idle" && (
         <div className="text-center">
           <p className="font-hand mb-4 text-lg text-white/50">
-            pop balloons to reveal compliments — catch as many as you can!
+            pop balloons to reveal compliments - catch as many as you can!
           </p>
           <motion.button
             onClick={startGame}

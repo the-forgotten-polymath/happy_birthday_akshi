@@ -3,6 +3,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import { config } from "@/lib/config";
 import Balloons from "@/components/ui/Balloons";
+import SVGPets from "@/components/ui/SVGPets";
 import { useNow } from "@/lib/useNow";
 
 export default function Gate({ children }: { children: ReactNode }) {
@@ -41,6 +42,9 @@ export default function Gate({ children }: { children: ReactNode }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-transparent text-white overflow-hidden">
+      {/* SVGPets running around */}
+      <SVGPets />
+
       {/* Interactive Balloons */}
       <Balloons count={10} className="z-[-1]" />
 
@@ -51,7 +55,7 @@ export default function Gate({ children }: { children: ReactNode }) {
         aria-label="Secret Bypass"
       />
 
-      <div className="text-center px-6">
+      <div className="relative z-10 text-center px-6">
         <p className="text-punch mb-6 text-sm tracking-[0.3em] uppercase">
           no peeking
         </p>

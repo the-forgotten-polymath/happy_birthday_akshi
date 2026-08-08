@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
 import { cannons, rain } from "@/lib/celebrate";
 
+import { memories } from "@/lib/memories";
+
 const GRID = 3; // 3×3 grid = 8 tiles + 1 empty
 const TOTAL = GRID * GRID;
-const IMAGE = "/photos/puzzle.jpg"; // Put any photo here
 
 type Tile = number; // 0 = empty, 1-8 = tiles
 
@@ -50,6 +51,7 @@ export default function PhotoPuzzle() {
   const [moves, setMoves] = useState(0);
   const [solved, setSolved] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [image, setImage] = useState(() => memories[Math.floor(Math.random() * memories.length)] || "/photos/puzzle.jpg");
 
   const emptyIndex = tiles.indexOf(0);
 
@@ -87,6 +89,7 @@ export default function PhotoPuzzle() {
     setTiles(generatePuzzle());
     setMoves(0);
     setSolved(false);
+    setImage(memories[Math.floor(Math.random() * memories.length)] || "/photos/puzzle.jpg");
   };
 
   // Tile background positions — each tile shows a piece of the photo
@@ -96,7 +99,7 @@ export default function PhotoPuzzle() {
     const row = Math.floor(tileIndex / GRID);
     const col = tileIndex % GRID;
     return {
-      backgroundImage: `url(${IMAGE})`,
+      backgroundImage: `url(${image})`,
       backgroundSize: `${GRID * 100}% ${GRID * 100}%`,
       backgroundPosition: `${(col / (GRID - 1)) * 100}% ${(row / (GRID - 1)) * 100}%`,
     };
@@ -143,7 +146,7 @@ export default function PhotoPuzzle() {
             >
               <div
                 className="mx-auto aspect-square w-32 rounded-xl border border-white/10 bg-cover bg-center shadow-lg"
-                style={{ backgroundImage: `url(${IMAGE})` }}
+                style={{ backgroundImage: `url(${image})` }}
               />
             </motion.div>
           )}
@@ -202,7 +205,7 @@ export default function PhotoPuzzle() {
         </div>
 
         <p className="mt-4 text-xs text-white/30">
-          💡 tip: place <code className="text-white/50">/photos/puzzle.jpg</code> in public folder for a real photo
+          💡 tip: tap 'new puzzle' to get a random memory!
         </p>
       </div>
     </section>

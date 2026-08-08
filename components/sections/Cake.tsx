@@ -223,6 +223,18 @@ export default function Cake() {
     return stop;
   }, [allOut]);
 
+  // Lower music volume when listening for mic
+  useEffect(() => {
+    if (listening) {
+      window.dispatchEvent(new CustomEvent("SET_AUDIO_VOLUME", { detail: 0.1 }));
+    } else {
+      window.dispatchEvent(new CustomEvent("SET_AUDIO_VOLUME", { detail: 0.5 }));
+    }
+    return () => {
+      window.dispatchEvent(new CustomEvent("SET_AUDIO_VOLUME", { detail: 0.5 }));
+    };
+  }, [listening]);
+
   // Tear down the mic when leaving the page
   useEffect(() => () => cleanupRef.current?.(), []);
 

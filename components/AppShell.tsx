@@ -12,24 +12,25 @@ import Intro from "@/components/sections/Intro";
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
-  const handleComplete = useCallback(() => setReady(true), []);
+  const handleComplete = useCallback(() => {
+    setReady(true);
+    window.dispatchEvent(new CustomEvent("PLAY_AUDIO"));
+  }, []);
 
   return (
     <>
-      {!ready && <Intro onComplete={handleComplete} />}
       <AnimatePresence>
-        {ready && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {children}
-          </motion.div>
-        )}
+        {!ready && <Intro key="intro" onComplete={handleComplete} />}
       </AnimatePresence>
-      {/* Keep children in DOM for static generation, just hidden */}
-      {!ready && <div className="invisible fixed">{children}</div>}
+      <motion.div
+        initial={false}
+        animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: ready ? "auto" : "none" }}
+        className={!ready ? "fixed inset-0 overflow-hidden invisible" : ""}
+      >
+        {children}
+      </motion.div>
     </>
   );
 }

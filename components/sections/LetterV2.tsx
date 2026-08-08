@@ -34,7 +34,7 @@ export default function LetterV2() {
 
     const char = fullText[typedIndex];
     // Pause slightly at punctuation for natural rhythm
-    const delay = char === "." || char === "," || char === "—" ? 80 : char === "\n" ? 120 : 28;
+    const delay = char === "." || char === "," || char === "-" ? 80 : char === "\n" ? 120 : 28;
 
     const t = setTimeout(() => setTypedIndex((i) => i + 1), delay);
     return () => clearTimeout(t);
@@ -137,15 +137,20 @@ export default function LetterV2() {
                 <div className="pointer-events-none absolute top-0 bottom-0 left-16 w-[1px] bg-rose-200/40 sm:left-20" />
 
                 {/* Typewriter text */}
-                <div className="font-hand relative min-h-[300px] whitespace-pre-wrap text-xl leading-[2] text-neutral-700 sm:text-2xl">
-                  {fullText.slice(0, typedIndex)}
-                  {typedIndex < fullText.length && (
-                    <motion.span
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
-                      className="ml-[1px] inline-block h-[1.1em] w-[2px] translate-y-[0.1em] bg-neutral-800"
-                    />
-                  )}
+                <div className="font-hand relative min-h-[300px] text-xl leading-relaxed text-neutral-700 sm:text-2xl sm:leading-relaxed">
+                  {fullText.slice(0, typedIndex).split("\n\n").map((para, i, arr) => (
+                    <p key={i} className="mb-3 sm:mb-4">
+                      {para}
+                      {/* Only show cursor at the end of the very last typed paragraph */}
+                      {i === arr.length - 1 && typedIndex < fullText.length && (
+                        <motion.span
+                          animate={{ opacity: [1, 0, 1] }}
+                          transition={{ duration: 0.8, repeat: Infinity }}
+                          className="ml-[1px] inline-block h-[1.1em] w-[2px] translate-y-[0.1em] bg-neutral-800"
+                        />
+                      )}
+                    </p>
+                  ))}
                 </div>
 
                 {/* Signature style when complete */}

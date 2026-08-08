@@ -98,7 +98,7 @@ export default function HeroV2() {
         </motion.p>
 
         {/* Main heading */}
-        <h1 className="font-display leading-[0.85] font-black tracking-tight">
+        <h1 className="font-display flex flex-col items-center leading-[0.85] font-black tracking-tight">
           {config.hero.greetingWords.map((word, i) => (
             <AnimatedText
               key={word}

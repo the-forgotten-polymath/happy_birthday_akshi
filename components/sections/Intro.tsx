@@ -14,7 +14,7 @@ import { config } from "@/lib/config";
  */
 export default function Intro({ onComplete }: { onComplete: () => void }) {
   const [count, setCount] = useState(3);
-  const [phase, setPhase] = useState<"counting" | "reveal" | "done">("counting");
+  const [phase, setPhase] = useState<"idle" | "counting" | "reveal" | "done">("idle");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Drive the countdown from an interval stored in a ref — no setState in the
@@ -85,6 +85,23 @@ export default function Intro({ onComplete }: { onComplete: () => void }) {
 
           {/* Countdown numbers */}
           <AnimatePresence mode="wait">
+            {phase === "idle" && (
+              <motion.button
+                key="idle"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("UNLOCK_AUDIO"));
+                  setPhase("counting");
+                }}
+                className="font-display absolute z-50 flex flex-col items-center gap-4 text-3xl font-bold text-white/80 hover:text-white transition-colors cursor-pointer"
+              >
+                <span className="text-6xl mb-2">🎁</span>
+                Tap to begin
+              </motion.button>
+            )}
+
             {phase === "counting" && count > 0 && (
               <motion.span
                 key={count}

@@ -64,32 +64,17 @@ export default function FortuneCookie() {
               className="relative cursor-pointer outline-none"
               aria-label="Crack the fortune cookie"
             >
-              {/* Cookie body — shape made with CSS */}
-              <div className="relative h-28 w-40">
-                {/* Left half */}
-                <div
-                  className="absolute inset-y-0 left-0 w-1/2 rounded-l-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500"
-                  style={{ borderRadius: "50% 0 0 50% / 80% 0 0 80%" }}
-                />
-                {/* Right half */}
-                <div
-                  className="absolute inset-y-0 right-0 w-1/2 rounded-r-full bg-gradient-to-bl from-amber-300 via-amber-400 to-amber-600"
-                  style={{ borderRadius: "0 50% 50% 0 / 0 80% 80% 0" }}
-                />
-                {/* Center fold line */}
-                <div className="absolute inset-y-2 left-1/2 w-[2px] -translate-x-1/2 bg-amber-700/30" />
-                {/* Highlight */}
-                <div className="absolute top-2 left-[20%] h-4 w-10 rounded-full bg-amber-200/50 blur-[2px]" />
-                {/* Shadow underneath */}
-                <div className="absolute -bottom-3 left-1/2 h-3 w-28 -translate-x-1/2 rounded-[50%] bg-black/20 blur-md" />
+              {/* Cookie body — Emoji version! */}
+              <div className="relative flex justify-center text-[8rem] leading-none drop-shadow-2xl">
+                🥠
               </div>
               {/* Tap hint */}
               <motion.span
                 animate={{ opacity: [0.4, 0.9, 0.4] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-white/40"
+                className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-xs text-white/40"
               >
-                tap to crack 🥠
+                tap to crack
               </motion.span>
             </motion.button>
           ) : (
@@ -100,22 +85,26 @@ export default function FortuneCookie() {
               animate={{ scale: 1, opacity: 1 }}
               className="flex flex-col items-center gap-4"
             >
-              {/* Two halves flying apart */}
-              <div className="relative flex items-center gap-4">
+              {/* Two halves flying apart using clip-path */}
+              <div className="relative flex items-center justify-center text-[8rem] leading-none">
                 <motion.div
                   initial={{ x: 0, rotate: 0 }}
-                  animate={{ x: -20, rotate: -15 }}
+                  animate={{ x: -30, y: 10, rotate: -25 }}
                   transition={{ type: "spring", stiffness: 200, damping: 12 }}
-                  className="h-14 w-14 rounded-l-full bg-gradient-to-br from-amber-300 to-amber-500"
-                  style={{ borderRadius: "50% 10% 10% 50% / 80% 40% 40% 80%" }}
-                />
+                  className="absolute"
+                  style={{ clipPath: "polygon(0 0, 50% 0, 45% 100%, 0 100%)" }}
+                >
+                  🥠
+                </motion.div>
                 <motion.div
                   initial={{ x: 0, rotate: 0 }}
-                  animate={{ x: 20, rotate: 15 }}
+                  animate={{ x: 30, y: 10, rotate: 25 }}
                   transition={{ type: "spring", stiffness: 200, damping: 12 }}
-                  className="h-14 w-14 rounded-r-full bg-gradient-to-bl from-amber-300 to-amber-600"
-                  style={{ borderRadius: "10% 50% 50% 10% / 40% 80% 80% 40%" }}
-                />
+                  className="relative"
+                  style={{ clipPath: "polygon(50% 0, 100% 0, 100% 100%, 45% 100%)" }}
+                >
+                  🥠
+                </motion.div>
               </div>
 
               {/* The fortune slip */}

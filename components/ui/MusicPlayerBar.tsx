@@ -16,7 +16,7 @@ export default function MusicPlayerBar() {
   const frameRef = useRef(0);
 
   const [playing, setPlaying] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -124,6 +124,54 @@ export default function MusicPlayerBar() {
     return () => el.removeEventListener("timeupdate", update);
   }, []);
 
+  // Global audio controls
+  useEffect(() => {
+    const handleUnlock = () => {
+      const el = audioRef.current;
+      if (el) {
+        initAudio();
+        if (ctxRef.current?.state === "suspended") ctxRef.current.resume();
+        el.volume = 0.5;
+        // Play instantly and keep playing
+        el.play().then(() => {
+          drawWaveform();
+          setPlaying(true);
+        }).catch(() => {});
+      }
+    };
+
+    const handlePlay = () => {
+      const el = audioRef.current;
+      if (!el) return;
+      
+      initAudio();
+      if (ctxRef.current?.state === "suspended") ctxRef.current.resume();
+      el.volume = 0.5;
+      
+      el.play().then(() => {
+        drawWaveform();
+        setPlaying(true);
+      }).catch((err) => {
+        console.error("Auto-play blocked:", err);
+      });
+    };
+
+    const handleVolume = (e: CustomEvent<number>) => {
+      if (audioRef.current) {
+        audioRef.current.volume = e.detail;
+      }
+    };
+
+    window.addEventListener("UNLOCK_AUDIO", handleUnlock);
+    window.addEventListener("PLAY_AUDIO", handlePlay);
+    window.addEventListener("SET_AUDIO_VOLUME", handleVolume as any);
+    return () => {
+      window.removeEventListener("UNLOCK_AUDIO", handleUnlock);
+      window.removeEventListener("PLAY_AUDIO", handlePlay);
+      window.removeEventListener("SET_AUDIO_VOLUME", handleVolume as any);
+    };
+  }, []);
+
   // Cleanup
   useEffect(() => () => { cancelAnimationFrame(frameRef.current); void ctxRef.current?.close(); }, []);
 
@@ -223,13 +271,14 @@ export default function MusicPlayerBar() {
       {!visible && (
         <motion.button
           initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
+          animate={playing ? { scale: 1, rotate: 360 } : { scale: 1, rotate: 0 }}
+          transition={playing ? { rotate: { duration: 4, repeat: Infinity, ease: "linear" } } : {}}
           whileHover={{ scale: 1.1 }}
           onClick={() => setVisible(true)}
-          className="glass fixed right-4 bottom-4 z-50 flex h-11 w-11 items-center justify-center rounded-full text-lg"
+          className={`glass fixed right-4 bottom-4 z-[90] flex h-12 w-12 items-center justify-center rounded-full text-xl shadow-lg ${playing ? 'shadow-sun/20 ring-1 ring-sun/30' : ''}`}
           aria-label="Show music player"
         >
-          🎵
+          {playing ? "💿" : "🎵"}
         </motion.button>
       )}
     </>

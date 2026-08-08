@@ -90,7 +90,11 @@ export default function WishJar() {
         className={`relative mx-auto h-80 w-56 sm:h-96 sm:w-64 ${sealed ? "cursor-pointer" : ""}`}
       >
         {/* Glass jar body */}
-        <div className="absolute inset-x-0 bottom-0 h-[85%] overflow-hidden rounded-b-[2rem] rounded-t-lg border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.03] shadow-[inset_0_0_30px_rgba(255,255,255,0.04)]">
+        <div className="absolute inset-x-0 bottom-0 h-[85%] overflow-hidden rounded-b-[2rem] rounded-t-xl border-x border-b border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.03] shadow-[inset_0_0_30px_rgba(255,255,255,0.04)]">
+          {/* Top shoulder borders (left and right) */}
+          <div className="absolute top-0 left-0 h-[1px] w-[20%] bg-white/15" />
+          <div className="absolute top-0 right-0 h-[1px] w-[20%] bg-white/15" />
+
           {/* Glass highlight */}
           <div className="absolute top-4 left-3 h-[60%] w-2.5 rounded-full bg-white/10 blur-[2px]" />
 
@@ -149,7 +153,7 @@ export default function WishJar() {
         </div>
 
         {/* Jar rim */}
-        <div className="absolute inset-x-[15%] top-[10%] h-[8%] rounded-t-md border border-white/15 border-b-0 bg-white/[0.06]" />
+        <div className="absolute inset-x-[20%] top-[7%] h-[8%] rounded-t-md border border-white/15 border-b-0 bg-white/[0.06]" />
 
         {/* Cork */}
         <AnimatePresence>

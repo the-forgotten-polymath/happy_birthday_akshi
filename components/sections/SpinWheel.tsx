@@ -6,7 +6,7 @@ import Reveal from "@/components/ui/Reveal";
 import { cannons, emojiBurst } from "@/lib/celebrate";
 
 const SEGMENTS = [
-  { label: "Movie night — your pick", emoji: "🎬", color: "#0c4a6e", colorLight: "#0ea5e9" },
+  { label: "Movie night - your pick", emoji: "🎬", color: "#0c4a6e", colorLight: "#0ea5e9" },
   { label: "Breakfast in bed", emoji: "🥞", color: "#78350f", colorLight: "#f59e0b" },
   { label: "One wish granted", emoji: "✨", color: "#064e3b", colorLight: "#34d399" },
   { label: "A full day together", emoji: "💛", color: "#1e3a5f", colorLight: "#38bdf8" },
@@ -57,7 +57,7 @@ export default function SpinWheel() {
             birthday wheel of fortune
           </h2>
           <p className="font-hand mt-2 text-xl text-white/50">
-            whatever it lands on, I owe you — no backing out
+            whatever it lands on, I owe you - no backing out
           </p>
         </Reveal>
 
