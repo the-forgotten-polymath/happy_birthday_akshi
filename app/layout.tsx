@@ -26,7 +26,6 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: `Happy 22nd Birthday, ${config.name} 🎉`,
-  description: `Chapter 22 — a website built entirely for ${config.name}.`,
 };
 
 export const viewport: Viewport = {
