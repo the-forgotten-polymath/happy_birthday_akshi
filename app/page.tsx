@@ -4,6 +4,7 @@ import Marquee from "@/components/sections/Marquee";
 import Numbers from "@/components/sections/Numbers";
 import ScrollText from "@/components/sections/ScrollText";
 import TwentyTwoV2 from "@/components/sections/TwentyTwoV2";
+import Mixtape from "@/components/sections/Mixtape";
 import Gallery from "@/components/sections/Gallery";
 import Reasons from "@/components/sections/Reasons";
 import GiftBox from "@/components/sections/GiftBox";
@@ -25,6 +26,7 @@ export default function Home() {
           <Numbers />
           <ScrollText />
           <TwentyTwoV2 />
+          <Mixtape />
           <Gallery />
           <Reasons />
           <GiftBox />

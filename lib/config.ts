@@ -320,6 +320,19 @@ twentyTwo: [
   "And finally: 22 is not the beginning of you becoming someone else. It's another chapter of becoming even more yourself. Go make it yours.",
 ],
 
+  /* ------------------------------------------------------------- mixtape */
+  mixtape: {
+    title: "the 22 mixtape",
+    subtitle: "press play on twenty-two",
+    tracks: [
+      {
+        title: "Birthday Anthem",
+        artist: "The Legends",
+        time: "3:42",
+      },
+    ],
+  },
+
   /* ---------------------------------------------------------- gift + wish */
   gift: {
     teaser: "there's something in here for you",

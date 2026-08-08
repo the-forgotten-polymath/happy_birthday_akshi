@@ -162,15 +162,33 @@ export default function MusicPlayerBar() {
       }
     };
 
+    const handleToggle = () => {
+      const el = audioRef.current;
+      if (!el) return;
+      if (el.paused) {
+        handlePlay();
+      } else {
+        el.pause();
+        setPlaying(false);
+        stopWaveform();
+      }
+    };
+
     window.addEventListener("UNLOCK_AUDIO", handleUnlock);
     window.addEventListener("PLAY_AUDIO", handlePlay);
+    window.addEventListener("TOGGLE_AUDIO", handleToggle);
     window.addEventListener("SET_AUDIO_VOLUME", handleVolume as any);
     return () => {
       window.removeEventListener("UNLOCK_AUDIO", handleUnlock);
       window.removeEventListener("PLAY_AUDIO", handlePlay);
+      window.removeEventListener("TOGGLE_AUDIO", handleToggle);
       window.removeEventListener("SET_AUDIO_VOLUME", handleVolume as any);
     };
   }, []);
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(playing ? "AUDIO_PLAYING" : "AUDIO_PAUSED"));
+  }, [playing]);
 
   // Cleanup
   useEffect(() => () => { cancelAnimationFrame(frameRef.current); void ctxRef.current?.close(); }, []);
